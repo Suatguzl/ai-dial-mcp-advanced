@@ -7,6 +7,8 @@ from agent.clients.mcp_client import MCPClient
 from agent.clients.dial_client import DialClient
 from agent.models.message import Message, Role
 
+from dotenv import load_dotenv
+load_dotenv()
 
 async def _collect_tools(
         client: MCPClient | CustomMCPClient,
@@ -22,10 +24,8 @@ async def main():
     tools: list[dict] = []
     tool_name_client_map: dict[str, MCPClient | CustomMCPClient] = {}
 
-    #TODO:
-    # Test it later with implemented CustomMCPClient
 
-    ums_mcp_client = await MCPClient.create("http://localhost:8006/mcp")
+    ums_mcp_client = await MCPClient.create("http://127.0.0.1:8006/mcp")
     await _collect_tools(ums_mcp_client, tools, tool_name_client_map)
 
     fetch_mcp_client = await MCPClient.create("https://remote.mcpservers.org/fetch/mcp")
